@@ -1,4 +1,4 @@
-package com.example.sagu;
+package com.example.sagu.pegawai;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +7,13 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sagu.R;
+
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    List<User> users;
+    public List<User> users;
 
     public UserAdapter(List<User> users) {
         this.users = users;

@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/edit_email"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
@@ -23,7 +23,7 @@
 
     <EditText
         android:id="@+id/edit_password"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPassword"
@@ -37,7 +37,7 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="48dp"
         android:text="Masuk"
         android:backgroundTint="@color/green"

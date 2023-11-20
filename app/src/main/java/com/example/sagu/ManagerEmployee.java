@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sagu.pegawai.User;
+import com.example.sagu.pegawai.UserAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,7 +28,7 @@ import java.util.Map;
 
 public class ManagerEmployee extends AppCompatActivity {
     Button btEmployee, btMenuList, btTable, btRegister;
-    FirebaseFirestore db;
+
     EditText etEmail, etPassword, etName, etLevel;
     FirebaseAuth auth;
     FirebaseFirestore fstore;
@@ -71,12 +74,16 @@ public class ManagerEmployee extends AppCompatActivity {
         btMenuList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ManagerEmployee.this, ManagerMenu.class);
+                startActivity(intent);
             }
         });
 
         btTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ManagerEmployee.this, ManagerTable.class);
+                startActivity(intent);
             }
         });
 
@@ -117,7 +124,6 @@ public class ManagerEmployee extends AppCompatActivity {
                     User user = document.toObject(User.class);
                     users.add(user);
                 }
-
                 // Set data ke adapter
                 userAdapter.users = users;
                 userAdapter.notifyDataSetChanged();

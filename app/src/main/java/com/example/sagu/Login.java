@@ -2,6 +2,7 @@ package com.example.sagu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity {
     EditText editEmail, editPasword;
+    ProgressDialog progressDialog;
     Button btnLogin;
     TextView txtDaftar;
     FirebaseAuth mAuth;
@@ -49,9 +51,15 @@ public class Login extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String password = editPasword.getText().toString();
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        progressDialog.dismiss();
                         // Sign in success
                         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -66,8 +74,10 @@ public class Login extends AppCompatActivity {
 
                                         if (document.get("level").equals("admin")) {
                                             startActivity(new Intent(this, ManagerEmployee.class));
+                                            Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                         } else if (document.get("level").equals("user")) {
                                             startActivity(new Intent(this, List_pesanan.class));
+                                            Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(this, "User level tidak valid", Toast.LENGTH_SHORT).show();
                                         }
@@ -77,6 +87,7 @@ public class Login extends AppCompatActivity {
                                 });
                     } else {
                         // Sign in failed
+                        progressDialog.dismiss();
                         Log.d("LoginActivity", "Sign in failed", task.getException());
                         Toast.makeText(this, "Email atau password salah", Toast.LENGTH_SHORT).show();
                     }

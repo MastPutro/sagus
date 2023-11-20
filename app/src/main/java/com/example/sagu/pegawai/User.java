@@ -1,4 +1,4 @@
-package com.example.sagu;
+package com.example.sagu.pegawai;
 
 public class User {
 
