@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class AddMenu extends AppCompatActivity {
     ImageView uploadImg;
-    EditText foodT, foodP;
+    EditText foodT, foodP, menuC;
     Button saveF;
     ImageButton Fsave;
     String imageURL;
@@ -55,6 +55,7 @@ public class AddMenu extends AppCompatActivity {
         uploadImg = findViewById(R.id.uploadImage);
         foodT = findViewById(R.id.txt_Menuname);
         foodP = findViewById(R.id.txt_harga);
+        menuC = findViewById(R.id.txt_codeMenu);
         saveF = findViewById(R.id.saveButtonMenu);
         Fsave = findViewById(R.id.bt_saveMenu);
         fstore = FirebaseFirestore.getInstance();
@@ -124,7 +125,7 @@ public class AddMenu extends AppCompatActivity {
     public void uploadData(){
         String foodTitle = foodT.getText().toString();
         String foodPrice = foodP.getText().toString();
-        DocumentReference documentReference = fstore.collection("menu").document();
+        DocumentReference documentReference = fstore.collection("menu").document(menuC.getText().toString());
         Map<String, Object> menu = new HashMap<>();
         menu.put("dataMenu", foodTitle);
         menu.put("dataHarga", foodPrice);

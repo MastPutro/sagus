@@ -93,6 +93,17 @@
                 android:inputType="numberDecimal"
                 android:gravity="start|center_vertical"
                 android:textColor="@color/lavender"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/txt_codeMenu"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Kode Menu"
+                android:inputType="numberDecimal"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/lavender"/>
 
 
             <Button

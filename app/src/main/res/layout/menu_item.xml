@@ -42,6 +42,7 @@
             android:layout_marginStart="20dp"
             android:maxLines="1"
             android:layout_marginBottom="12dp"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
