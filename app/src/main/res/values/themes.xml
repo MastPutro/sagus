@@ -3,7 +3,11 @@
     <style name="Base.Theme.Sagu" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
 
+    </style>
+    <style name="Base.Theme.Sagu.popup">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
     <style name="Theme.Sagu" parent="Base.Theme.Sagu" />
 </resources>

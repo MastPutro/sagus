@@ -27,15 +27,13 @@
             android:background="@drawable/baseline_shopping_bag_24"
             android:clickable="true" />
 
-        <TextView
-            android:id="@+id/tv_namaMeja"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:clickable="true"
-            android:text="NOMOR MEJA"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+        <Spinner
+            android:id="@+id/spin_meja"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,48 +99,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="530dp"
-        android:orientation="horizontal"
-        android:background="@color/material_dynamic_neutral70"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
-        app:layout_constraintVertical_bias="0.154">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Harga :"
-            android:textSize="20sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/black"
-            android:layout_marginRight="170dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Rp."
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
-        <TextView
-            android:id="@+id/tv_totalHarga"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="20000"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pesananbaru"
         android:layout_width="match_parent"
-        android:layout_height="540dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        android:layout_height="570dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
