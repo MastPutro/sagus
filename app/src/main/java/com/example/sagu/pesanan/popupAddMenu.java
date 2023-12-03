@@ -47,7 +47,6 @@ public class popupAddMenu extends AppCompatActivity {
     QuerySnapshot liMenu;
     String idMenu;
     int counter;
-    FirebaseFirestore fstore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class popupAddMenu extends AppCompatActivity {
         tvCount = findViewById(R.id.tv_count);
         tambah = findViewById(R.id.bt_tambahBarang);
         cancel = findViewById(R.id.bt_cancelBarang);
-        fstore = FirebaseFirestore.getInstance();
 
 
         arrayMenu = new ArrayList<>();
@@ -153,26 +151,12 @@ public class popupAddMenu extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        String date = DateFormat.getDateInstance().format(Calendar.getInstance().getTime());
-        String dataBarang = spin_menu.getSelectedItem().toString().trim();
-        String dataJumlah = tvCount.getText().toString().trim();
-        DocumentReference documentReference = fstore.collection("pesan").document();
-        Map<String, Object> dataPesan = new HashMap<>();
-        dataPesan.put("dataBarang", dataBarang);
-        dataPesan.put("dataJumlah", dataJumlah);
-        dataPesan.put("foodId", idMenu);
-        dataPesan.put("tgl", date);
-        documentReference.set(dataPesan).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d(TAG, "onSuccess: menu is created" + dataBarang + dataJumlah);
-                Toast.makeText(getApplicationContext(), "Menu ditambahkan!", Toast.LENGTH_SHORT);
-                Intent intent = new Intent(popupAddMenu.this, AddPesan.class);
-                startActivity(intent);
-                progressDialog.dismiss();
-            }
-        });
-
+        Intent intent = new Intent(popupAddMenu.this, AddPesan.class);
+        intent.putExtra("fName", spin_menu.getSelectedItem().toString());
+        intent.putExtra("fId", idMenu);
+        intent.putExtra("fAmount", tvCount.getText().toString());
+        startActivity(intent);
+        progressDialog.dismiss();
 
     }
 }
