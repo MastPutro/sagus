@@ -81,34 +81,35 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/bt_tunai"
+            android:id="@+id/bt_simpan"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:backgroundTint="@color/white"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:text="Bayar Tunai" />
+            android:text="Simpan" />
+
         <TextView
-            android:id="@+id/tv_ppn"
-            android:layout_width="100dp"
+            android:id="@+id/tv_harga"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PPN"
+            android:text="Harga"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentEnd="true" />
         <TextView
-            android:id="@+id/tv_hargatotal"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Harga total"
+            android:text="Rp. "
             android:textSize="20sp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/tv_ppn"/>
+            android:layout_toStartOf="@+id/tv_harga"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

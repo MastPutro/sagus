@@ -17,7 +17,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder{
         tvFname = itemView.findViewById(R.id.tv_foodName);
         tvFid = itemView.findViewById(R.id.tv_idFood);
         tvFamount = itemView.findViewById(R.id.tv_jumlah);
-        btRemove = itemView.findViewById(R.id.bt_remove);
 
 
     }

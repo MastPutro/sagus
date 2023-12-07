@@ -36,14 +36,6 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_marginLeft="3dp"/>
-        <ImageButton
-            android:id="@+id/bt_remove"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/baseline_remove_circle_24"
-            android:layout_toEndOf="@+id/tv_jumlah"
-            android:layout_centerVertical="true"
-            android:clickable="true"/>
 
     </RelativeLayout>
 

@@ -33,5 +33,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
     public int getItemCount() {
         return itemPS.size();
     }
+    public void removeItem(int position) {
+        itemPS.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, itemPS.size());
+    }
 
 }

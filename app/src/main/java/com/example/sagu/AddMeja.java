@@ -76,6 +76,7 @@ public class AddMeja extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("mejan",meja_name);
         user.put("keterangan",meja_ket);
+        user.put("status", true);
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

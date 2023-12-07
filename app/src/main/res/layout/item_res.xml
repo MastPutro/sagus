@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/res_Card"
+    android:layout_margin="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <TextView
+            android:id="@+id/res_nomeja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NOMOR MEJA"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nilai Total: IDR "
+            android:layout_below="@+id/res_nomeja"/>
+        <TextView
+            android:id="@+id/res_harga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10000"
+            android:layout_toRightOf="@+id/tv1"
+            android:layout_below="@+id/res_nomeja"/>
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dibuat pada "
+            android:layout_below="@id/tv1"/>
+        <TextView
+            android:id="@+id/res_tgl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TANGGAL"
+            android:layout_below="@+id/res_harga"
+            android:layout_toRightOf="@+id/tv2"/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
