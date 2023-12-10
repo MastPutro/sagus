@@ -21,7 +21,6 @@ public class Login extends AppCompatActivity {
     EditText editEmail, editPasword;
     ProgressDialog progressDialog;
     Button btnLogin;
-    TextView txtDaftar;
     FirebaseAuth mAuth;
 
     @Override
@@ -33,7 +32,6 @@ public class Login extends AppCompatActivity {
         editEmail = findViewById(R.id.edit_email);
         editPasword = findViewById(R.id.edit_password);
         btnLogin = findViewById(R.id.btn_login);
-        txtDaftar = findViewById(R.id.txt_daftar);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -59,7 +57,6 @@ public class Login extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        progressDialog.dismiss();
                         // Sign in success
                         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -73,15 +70,19 @@ public class Login extends AppCompatActivity {
                                         DocumentSnapshot document = task1.getResult();
 
                                         if (document.get("level").equals("admin")) {
+                                            progressDialog.dismiss();
                                             startActivity(new Intent(this, ManagerEmployee.class));
                                             Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                         } else if (document.get("level").equals("user")) {
+                                            progressDialog.dismiss();
                                             startActivity(new Intent(this, List_pesanan.class));
                                             Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                         } else {
+                                            progressDialog.dismiss();
                                             Toast.makeText(this, "User level tidak valid", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
+                                        progressDialog.dismiss();
                                         Log.d("LoginActivity", "Error getting user document", task1.getException());
                                     }
                                 });

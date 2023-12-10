@@ -37,6 +37,15 @@
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
+        <ImageButton
+            android:id="@+id/pem_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vectoar"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:layout_marginRight="10dp"/>
 
     </RelativeLayout>
 

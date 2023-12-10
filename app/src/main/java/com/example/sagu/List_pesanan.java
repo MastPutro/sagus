@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class List_pesanan extends AppCompatActivity {
     RecyclerView rvPesanList;
     ImageButton bt_add, btRefresh, history;
     FirebaseFirestore db;
+    Button catering;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,11 @@ public class List_pesanan extends AppCompatActivity {
         rvPesanList = findViewById(R.id.rv_pesanlist);
         btRefresh = findViewById(R.id.bt_refresh);
         history = findViewById(R.id.btn_riwayatpsn);
+        catering = findViewById(R.id.btn_cat);
 
         db = FirebaseFirestore.getInstance();
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         String date = DateFormat.getDateInstance().format(Calendar.getInstance().getTime());
-        tvTanggal.setText(date);
         getResData();
 //        progressDialog = new ProgressDialog(this);
 //        progressDialog.setCancelable(false);
@@ -77,6 +79,13 @@ public class List_pesanan extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(List_pesanan.this, HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        catering.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(List_pesanan.this, cateringActivity.class);
                 startActivity(intent);
             }
         });

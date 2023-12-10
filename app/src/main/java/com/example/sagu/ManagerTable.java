@@ -63,6 +63,13 @@ public class ManagerTable extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ManagerTable.this, ManagerMenu.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

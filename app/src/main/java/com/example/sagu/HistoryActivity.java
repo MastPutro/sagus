@@ -1,9 +1,15 @@
 package com.example.sagu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.print.PrintHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
@@ -12,9 +18,19 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.sagu.history.DatePickerFragment;
+import com.example.sagu.history.HisAdapter;
+import com.example.sagu.history.itemHistory;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -22,81 +38,100 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class HistoryActivity extends AppCompatActivity {
-    Button btn;
+    ImageButton listmenu, refresh;
+    ProgressDialog progressDialog;
+    FirebaseFirestore db;
+    RecyclerView rvhistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        btn = findViewById(R.id.buttonasu);
-        btn.setOnClickListener(new View.OnClickListener() {
+        listmenu = findViewById(R.id.his_listmeja);
+        refresh = findViewById(R.id.his_refresh);
+        rvhistory = findViewById(R.id.his_rv);
+        db = FirebaseFirestore.getInstance();
+        getDataHistory();
+        listmenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                printToBluetoothPrinter(view);
+                Intent  intent = new Intent(HistoryActivity.this, List_pesanan.class);
+                startActivity(intent);
             }
         });
-
-    }
-    public void printToBluetoothPrinter(View view) {
-        String barang = "Barang: Meja";
-        String harga = "Harga: $100";
-        String dataToPrint = barang + "\n" + harga;
-
-        // Menggunakan PrintManager untuk mencetak data ke printer Bluetooth
-        PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
-        PrintDocumentAdapter printAdapter = new MyPrintDocumentAdapter(dataToPrint);
-
-        if (printManager != null) {
-            String jobName = getString(R.string.app_name) + " Document";
-            printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
-        }
-
-        Toast.makeText(this, "Data telah terkirim ke printer Bluetooth", Toast.LENGTH_SHORT).show();
-    }
-
-    private class MyPrintDocumentAdapter extends PrintDocumentAdapter {
-        private String dataToPrint;
-
-        MyPrintDocumentAdapter(String dataToPrint) {
-            this.dataToPrint = dataToPrint;
-        }
-
-        @Override
-        public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes, CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras) {
-            if (cancellationSignal.isCanceled()) {
-                callback.onLayoutCancelled();
-            } else {
-                PrintDocumentInfo pdi = new PrintDocumentInfo.Builder("document_name").setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT).build();
-                callback.onLayoutFinished(pdi, true);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDataHistory();
             }
-        }
+        });
+    }
+    public void getDataHistory() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Sabar Bolo....");
 
-        @Override
-        public void onWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal, WriteResultCallback callback) {
-            if (cancellationSignal.isCanceled()) {
-                callback.onWriteCancelled();
-            } else {
-                try {
-                    InputStream input = new ByteArrayInputStream(dataToPrint.getBytes());
-                    OutputStream output = new FileOutputStream(destination.getFileDescriptor());
-
-                    byte[] buf = new byte[1024];
-                    int bytesRead;
-
-                    while ((bytesRead = input.read(buf)) > 0) {
-                        output.write(buf, 0, bytesRead);
+        progressDialog.show();
+        db.collection("reservasi")
+                .whereEqualTo("status", false)
+//                .whereEqualTo("tanggal", tanggal.getText().toString())
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<itemHistory> dataHis = new ArrayList<>();
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        itemHistory data = documentSnapshot.toObject(itemHistory.class);
+                        dataHis.add(data);
                     }
+                    displayDataInRecycleView(dataHis);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("getHisdata", "error Fecthingdata " + e);
+                    Toast.makeText(this, "error fetching data", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                });
 
-                    callback.onWriteFinished(new PageRange[]{PageRange.ALL_PAGES});
+//        if (tgl != null) {
+//
+//        } else {
+//            db.collection("reservasi")
+//                    .whereEqualTo("status", false)
+//                    .get()
+//                    .addOnSuccessListener(queryDocumentSnapshots -> {
+//                        List<itemHistory> dataHis = new ArrayList<>();
+//                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+//                            itemHistory data = documentSnapshot.toObject(itemHistory.class);
+//                            dataHis.add(data);
+//                        }
+//                        displayDataInRecycleView(dataHis);
+//                    })
+//                    .addOnFailureListener(e -> {
+//                        Log.e("getHisdata", "error Fecthingdata " + e);
+//                        Toast.makeText(this, "error fetching data", Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+//                    });
+//        }
+    }
+    private void displayDataInRecycleView (List<itemHistory> dataHis){
+        Log.d("HistoryActivity", "Displaying data in RecyclerView");
 
-                } catch (FileNotFoundException e) {
-                    // Handle the exception
-                } catch (IOException e) {
-                    // Handle the exception
-                }
-            }
+        if (dataHis == null) {
+            Log.e("HistoryActivity", "Data is null");
+            return;
         }
+
+        Log.d("HistoryActivity", "Data size: " + dataHis.size());
+
+        rvhistory.setLayoutManager(new LinearLayoutManager(this));
+        HisAdapter adapter = new HisAdapter(dataHis, HistoryActivity.this);
+        rvhistory.setAdapter(adapter);
+        progressDialog.dismiss();
     }
 }

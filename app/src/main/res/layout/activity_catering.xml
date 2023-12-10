@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".List_pesanan"
+    tools:context=".cateringActivity"
     android:background="@color/yellow">
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -25,47 +24,18 @@
             android:id="@+id/btn_cat"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/green"
             android:text="Catering"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/btn_onstore"
+            android:id="@+id/cat_onstore"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/green"
-            android:textColor="@color/white"
-            android:text="Onstore" />
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:text="Di Toko" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/nav_bg"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageButton
-            android:id="@+id/btn_listmeja"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/baseline_format_list_bulleted_24" />
-
-        <ImageButton
-            android:id="@+id/btn_riwayatpsn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/baseline_collections_bookmark_24" />
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
@@ -78,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0">
         <ImageButton
-            android:id="@+id/bt_refresh"
+            android:id="@+id/cat_refresh"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
@@ -93,29 +63,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="Di Toko"
+            android:text="CATERING"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_toRightOf="@+id/bt_refresh"/>
-
-        <ImageButton
-            android:id="@+id/bt_addpesan"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/baseline_playlist_add_24"
-            android:clickable="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"/>
+            android:layout_toRightOf="@+id/cat_refresh"/>
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pesanlist"
+        android:id="@+id/cat_rv"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="610dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

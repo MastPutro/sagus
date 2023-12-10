@@ -35,10 +35,10 @@
             android:hint="E-Mail"
             android:inputType="textEmailAddress" />
 
-        <EditText
+        <Spinner
             android:id="@+id/level_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
             android:ems="10"
             android:hint="Level"
             android:inputType="text" />

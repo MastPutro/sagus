@@ -8,12 +8,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,61 +22,53 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class TunaiActivity extends AppCompatActivity {
-    TextView tunaiMeja, tunaiTgl, tunaiHarga, kembalian;
-    EditText dibayar, device;
-    RadioButton struk;
-    Button konfirm;
+public class TransferActivity extends AppCompatActivity {
     ImageButton back;
-    String meja, tgl, harga, reservasi, mejaid, barang, jumlah, printer;
+    TextView mejas, tanggal, hargas, kembalian;
+    EditText dibayar, mutasi;
+    Button konfirm;
+    String meja, tgl, harga, reservasi, mejaid, printer;
     PrintBluetooth printBT;
     int kembali;
     FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tunai);
-        tunaiMeja = findViewById(R.id.tunai_meja);
-        tunaiHarga = findViewById(R.id.tunai_harga);
-        tunaiTgl = findViewById(R.id.tunai_tgl);
-        kembalian = findViewById(R.id.tunai_kembalian);
-        dibayar = findViewById(R.id.tunai_dibayar);
-        device = findViewById(R.id.tunai_device);
-        konfirm = findViewById(R.id.tunai_konfirm);
-        back = findViewById(R.id.tunai_back);
-        db = FirebaseFirestore.getInstance();
-        getPrinter();
+        setContentView(R.layout.activity_transfer);
+        back = findViewById(R.id.tf_back);
+        mejas = findViewById(R.id.tf_meja);
+        tanggal = findViewById(R.id.tf_tgl);
+        hargas = findViewById(R.id.tf_harga);
+        dibayar = findViewById(R.id.tf_dibayar);
+        kembalian = findViewById(R.id.tf_kembalian);
+        konfirm = findViewById(R.id.tf_konfirm);
+        mutasi = findViewById(R.id.tf_mutasi);
         printBT = new PrintBluetooth();
-
+        db = FirebaseFirestore.getInstance();
         Bundle bundle = getIntent().getExtras();
+        getPrinter();
+
         if (bundle != null){
             meja = bundle.getString("tmeja");
             tgl = bundle.getString("ttanggal");
             harga = bundle.getString("tharga");
             reservasi = bundle.getString("treservasi");
             mejaid = bundle.getString("tmejaid");
-            tunaiMeja.setText(meja);
-            tunaiTgl.setText(tgl);
-            tunaiHarga.setText(harga);
+
+            mejas.setText(meja);
+            tanggal.setText(tgl);
+            hargas.setText(harga);
             dibayar.setText(harga);
-//            tunaiMeja.setText(bundle.getString("tmeja"));
-//            tunaiTgl.setText(bundle.getString("ttanggal"));
-//            tunaiHarga.setText(bundle.getString("tharga"));
         }
-
-
         dibayar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -111,6 +101,7 @@ public class TunaiActivity extends AppCompatActivity {
                 }
             }
         });
+
         konfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +117,7 @@ public class TunaiActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TunaiActivity.this, List_pesanan.class);
+                Intent intent = new Intent(TransferActivity.this, List_pesanan.class);
                 startActivity(intent);
             }
         });
@@ -138,13 +129,13 @@ public class TunaiActivity extends AppCompatActivity {
                 .document(reservasi)
                 .update(data)
                 .addOnSuccessListener(aVoid -> {
-            sendReciptOnDatabase();
-            sendTableConfirmation();
-            printRecipt();
-            Log.d("sendResConfirmation", "konfirm berhasil "+reservasi);
-        }).addOnFailureListener(e -> {
-            Log.w("sendResConfirmation", "konfirm gagal "+e);
-        });
+                    sendReciptOnDatabase();
+                    sendTableConfirmation();
+                    printRecipt();
+                    Log.d("sendResConfirmation", "konfirm berhasil "+reservasi);
+                }).addOnFailureListener(e -> {
+                    Log.w("sendResConfirmation", "konfirm gagal "+e);
+                });
     }
     public void sendTableConfirmation(){
         Map<String, Object> data = new HashMap<>();
@@ -164,22 +155,23 @@ public class TunaiActivity extends AppCompatActivity {
         dataDoc.put("dibayar", dibayar.getText().toString());
         dataDoc.put("kembalian", kembali);
         dataDoc.put("reservasi", reservasi);
-        db.collection("struk")
+        dataDoc.put("mutasi", mutasi.getText().toString());
+        db.collection("struktf")
                 .add(dataDoc)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d("TunaiActivity", "send database berhasil "+ documentReference.getId());
-                Toast.makeText(getApplicationContext(), "data terkirim", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(TunaiActivity.this, List_pesanan.class);
-                startActivity(intent);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("TunaiActivity", "send database gagal "+ e);
-            }
-        });
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TunaiActivity", "send database berhasil "+ documentReference.getId());
+                        Toast.makeText(getApplicationContext(), "data terkirim", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(TransferActivity.this, List_pesanan.class);
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TunaiActivity", "send database gagal "+ e);
+                    }
+                });
     }
     public void printRecipt(){
         PrintBluetooth.printer_id = printer;
@@ -211,4 +203,6 @@ public class TunaiActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

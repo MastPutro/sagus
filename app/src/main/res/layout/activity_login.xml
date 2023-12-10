@@ -9,11 +9,13 @@
 
     <EditText
         android:id="@+id/edit_email"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:background="@drawable/rectagle_border"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
@@ -23,11 +25,13 @@
 
     <EditText
         android:id="@+id/edit_password"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:ems="10"
         android:inputType="textPassword"
         android:background="@drawable/rectagle_border"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -37,54 +41,18 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Masuk"
         android:backgroundTint="@color/green"
         android:textColor="@color/white"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password"
         app:layout_constraintVertical_bias="0.191" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Belum Punya akun?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.301"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.145" />
-
-    <TextView
-        android:id="@+id/txt_daftar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Daftar"
-        android:clickable="true"
-        android:textColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.145" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sekarang!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toEndOf="@+id/txt_daftar"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.145" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
