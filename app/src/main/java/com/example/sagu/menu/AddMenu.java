@@ -41,7 +41,7 @@ public class AddMenu extends AppCompatActivity {
     ImageView uploadImg;
     EditText foodT, foodP, menuC;
     Button saveF;
-    ImageButton Fsave;
+    ImageButton Fsave, back;
     String imageURL;
     Uri uri;
     ProgressDialog progressDialog;
@@ -58,6 +58,7 @@ public class AddMenu extends AppCompatActivity {
         menuC = findViewById(R.id.txt_codeMenu);
         saveF = findViewById(R.id.saveButtonMenu);
         Fsave = findViewById(R.id.bt_saveMenu);
+        back = findViewById(R.id.bt_backMenu);
         fstore = FirebaseFirestore.getInstance();
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -95,6 +96,13 @@ public class AddMenu extends AppCompatActivity {
             public void onClick(View view) {
                 saveData();
                 back();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddMenu.this, ManagerMenu.class);
+                startActivity(intent);
             }
         });
     }

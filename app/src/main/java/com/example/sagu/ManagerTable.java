@@ -1,8 +1,10 @@
 package com.example.sagu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +15,11 @@ import android.widget.Toast;
 
 import com.example.sagu.meja.Meja;
 import com.example.sagu.meja.MejaAdapter;
+import com.example.sagu.reservasi.ItemRes;
+import com.example.sagu.reservasi.ResAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,8 @@ public class ManagerTable extends AppCompatActivity {
     MejaAdapter mejaAdapter;
     RecyclerView rvmejalist;
     ImageView btaddmeja;
+    ProgressDialog progressDialog;
+    FirebaseFirestore db;
 
 
     @Override
@@ -36,11 +43,8 @@ public class ManagerTable extends AppCompatActivity {
         btpegawai = findViewById(R.id.bt_pegawai);
         btaddmeja = findViewById(R.id.bt_addmeja);
         btmenu = findViewById(R.id.bt_menu);
+        db = FirebaseFirestore.getInstance();
 
-
-//        Set adapter meja
-        mejaAdapter = new MejaAdapter(new ArrayList<>());
-        rvmejalist.setAdapter(mejaAdapter);
 
 
 //        Load Method
@@ -76,21 +80,34 @@ public class ManagerTable extends AppCompatActivity {
 
 //    Method
     public void mejalist(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("meja").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Meja> mejas = new ArrayList<>();
-                for (DocumentSnapshot document : task.getResult()) {
-                    Meja meja = document.toObject(Meja.class);
-                    mejas.add(meja);
-                }
-                // Set data ke adapter
-                mejaAdapter.mejas = mejas;
-                mejaAdapter.notifyDataSetChanged();
-            } else {
-                Log.d("ManagerTable", "Error getting meja", task.getException());
-                Toast.makeText(this, "Retrive data failed", Toast.LENGTH_SHORT).show();
-            }
-        });
+        progressDialog = new ProgressDialog(ManagerTable.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fecthing Data....");
+        progressDialog.show();
+        db.collection("meja")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Proses data yang diterima di sini
+                    List<Meja> dataList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Meja data = document.toObject(Meja.class);
+                        data.setKey(document.getId());
+                        dataList.add(data);
+                    }
+                    // Panggil method untuk menampilkan data ke RecyclerView
+                    displayDataInRecyclerView(dataList);
+                })
+                .addOnFailureListener(e -> {
+                    // Handle error jika terjadi
+                    Log.e("getResdata", "error Fecthingdata "+e );
+                    Toast.makeText(this, "error fecthing data", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                });
+    }
+    private void displayDataInRecyclerView(List<Meja> dataList){
+        rvmejalist.setLayoutManager(new LinearLayoutManager(this));
+        MejaAdapter adapter = new MejaAdapter(dataList, ManagerTable.this);
+        rvmejalist.setAdapter(adapter);
+        progressDialog.dismiss();
     }
 }

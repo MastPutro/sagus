@@ -17,6 +17,7 @@ import com.example.sagu.ManagerEmployee;
 import com.example.sagu.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -89,7 +90,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         AlertDialog.Builder builder;
         FirebaseFirestore db;
         CardView user;
-
         public ViewHolder(View view) {
             super(view);
             builder = new AlertDialog.Builder(context);

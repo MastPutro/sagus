@@ -82,7 +82,9 @@ public class ManagerMenu extends AppCompatActivity {
                List<Item> menus = new ArrayList<>();
                for (DocumentSnapshot document :task.getResult()) {
                    Item menu = document.toObject(Item.class);
+                   menu.setKey(document.getId());
                    menus.add(menu);
+
                }
                adapter.menus = menus;
                adapter.notifyDataSetChanged();
