@@ -55,7 +55,6 @@ public class TunaiActivity extends AppCompatActivity {
         tunaiTgl = findViewById(R.id.tunai_tgl);
         kembalian = findViewById(R.id.tunai_kembalian);
         dibayar = findViewById(R.id.tunai_dibayar);
-        device = findViewById(R.id.tunai_device);
         konfirm = findViewById(R.id.tunai_konfirm);
         back = findViewById(R.id.tunai_back);
         db = FirebaseFirestore.getInstance();
