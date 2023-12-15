@@ -185,32 +185,4 @@
             android:text="Konfirmasi Pembayaran" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/tunai_device"
-        android:layout_width="170dp"
-        android:layout_height="30dp"
-        android:background="@drawable/lavender_border"
-        android:ems="10"
-        android:hint="Device ID"
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tunai_kembalian"
-        app:layout_constraintVertical_bias="0.197" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Printer"
-        app:layout_constraintBottom_toTopOf="@+id/tunai_device"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tunai_kembalian"
-        app:layout_constraintVertical_bias="0.74" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
