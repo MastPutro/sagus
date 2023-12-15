@@ -38,8 +38,15 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verify();
-
+                if (editEmail.getText().toString().isEmpty()){
+                    Toast.makeText(Login.this, "Masukkan Email!", Toast.LENGTH_SHORT).show();
+                }else {
+                    if (editPasword.getText().toString().isEmpty()){
+                        Toast.makeText(Login.this, "Masukkan Password!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        verify();
+                    }
+                }
             }
         });
 
